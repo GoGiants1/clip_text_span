@@ -11,6 +11,7 @@ dependencies:
   - scikit-image
   - scikit-learn
   - scipy
+  - jupyter notebook
   - pip:
     - opencv-python
     - einops

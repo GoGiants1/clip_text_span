@@ -12,6 +12,7 @@ dependencies:
   - scikit-learn
   - scipy
   - jupyter notebook
+  - pandas
   - pip:
     - opencv-python
     - einops

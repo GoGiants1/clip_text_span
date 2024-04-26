@@ -4,3 +4,5 @@ __pycache__/
 utils/__pycache__
 imagenet_seg/
 run/
+TMDBEval500/*
+*.zip

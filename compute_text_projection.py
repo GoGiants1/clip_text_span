@@ -86,11 +86,20 @@ def main(args):
     print("Model parameters:", f"{np.sum([int(np.prod(p.shape)) for p in model.parameters()]):,}")
     print("Context length:", context_length)
     print("Vocab size:", vocab_size)
-    classes = {
+    cls_dict = {
         'imagenet': imagenet_classes, 
         'waterbirds': cub_classes, 
         'binary_waterbirds': waterbird_classes, 
-        'cub': cub_classes}[args.dataset]
+        'cub': cub_classes
+    }
+    if args.dataset == 'TMDBEval500':
+        with open("./TMDBEval500/TMDBEval500.txt", 'r') as f:
+            txt = f.read()
+            txt_description_list = txt.split('\n')
+            cls_dict["TMDBEval500"] = txt_description_list
+
+
+    classes = cls_dict[args.dataset]
     classifier = zero_shot_classifier(model, tokenizer, classes, OPENAI_IMAGENET_TEMPLATES, args.device)
     with open(os.path.join(args.output_dir, f'{args.dataset}_classifier_{args.model}.npy'), 'wb') as f:
         np.save(f, classifier.detach().cpu().numpy())

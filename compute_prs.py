@@ -10,7 +10,7 @@ import tqdm
 from utils.factory import create_model_and_transforms, get_tokenizer
 from utils.binary_waterbirds import BinaryWaterbirds
 from prs_hook import hook_prs_logger
-from torchvision.datasets import CIFAR100, CIFAR10, ImageNet, ImageFolder
+from torchvision.datasets import CIFAR100, CIFAR10, ImageNet, ImageFolder, EMNIST
 
 
 def get_args_parser():
@@ -73,6 +73,8 @@ def main(args):
         ds = CIFAR10(
             root=args.data_path, download=True, train=False, transform=preprocess
         )
+    elif args.dataset == "EMNIST":
+        ds = EMNIST(root=args.data_path, download=True, train=False, transform=preprocess)
     else:
         ds = ImageFolder(root=args.data_path, transform=preprocess)
     dataloader = DataLoader(
